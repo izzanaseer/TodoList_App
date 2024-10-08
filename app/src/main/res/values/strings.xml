@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">To Do List</string>
+    <string name="taskminder">TaskMinder</string>
+    <string name="tagline">List and Track your tasks</string>
+</resources>
