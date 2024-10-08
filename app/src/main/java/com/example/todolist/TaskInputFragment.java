@@ -6,35 +6,49 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.Fragment;
 
-public class TaskInputFragment  extends DialogFragment {
+public class TaskInputFragment  extends Fragment {
 
-    EditText etTaskInput;
-    Button btnAddTask;
+    private EditText etTaskName, etTaskDescription;
+    private Button btnSaveTask;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_task_input, container, false);
 
-        etTaskInput = view.findViewById(R.id.etTaskInput);
-        btnAddTask = view.findViewById(R.id.btnAddTask);
+        // Initialize the views
+        etTaskName = view.findViewById(R.id.etTaskName);
+        etTaskDescription = view.findViewById(R.id.etTaskDescription);
+        btnSaveTask = view.findViewById(R.id.btnSaveTask);
 
-        // Handle button click to add the task
-        btnAddTask.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String task = etTaskInput.getText().toString();
-                if (!task.isEmpty()) {
-                    ((Dashboard) getActivity()).addTask(task);
-                    dismiss();
+        // Handle the save button click
+        btnSaveTask.setOnClickListener(v -> {
+            String taskName = etTaskName.getText().toString();
+            String taskDescription = etTaskDescription.getText().toString();
+
+            if (taskName.isEmpty()) {
+                Toast.makeText(getActivity(), "Task name is required", Toast.LENGTH_SHORT).show();
+            } else {
+                // Use a callback to pass the task to the main activity
+                if (getActivity() instanceof TaskInputListener) {
+                    ((TaskInputListener) getActivity()).onTaskInput(taskName, taskDescription);
                 }
+
+                // Close the fragment after saving
+                getActivity().getSupportFragmentManager().popBackStack();
             }
         });
 
         return view;
+    }
+
+    // Define an interface to communicate with the activity
+    public interface TaskInputListener {
+        void onTaskInput(String taskName, String taskDescription);
     }
 }
