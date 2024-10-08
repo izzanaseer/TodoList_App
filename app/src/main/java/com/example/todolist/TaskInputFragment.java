@@ -10,7 +10,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
-public class TaskInputFragment extends DialogFragment {
+public class TaskInputFragment  extends DialogFragment {
+
     EditText etTaskInput;
     Button btnAddTask;
 
