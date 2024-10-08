@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="logo_margin_top">100dp</dimen>
+    <dimen name="logo_margin_sides">65dp</dimen>
+    <dimen name="name_text_size">50sp</dimen>
+    <dimen name="tagline_text_size">18sp</dimen>
+</resources>
